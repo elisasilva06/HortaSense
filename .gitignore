@@ -1,0 +1,79 @@
+
+# ==========================================
+# HortaSense — Arquivos ignorados pelo Git
+# ==========================================
+
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+
+# Cache e arquivos compilados do Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Distribuições e metadados de instalação
+build/
+dist/
+*.egg-info/
+
+# Banco de dados local
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+*.sqlite
+*.sqlite3
+
+# Preservar a pasta data no repositório
+!data/.gitkeep
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.toml
+.streamlit/secrets.toml
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+*~
+*.swp
+*.swo
+
+# Backups locais de código
+*.backup.py
+*.antes_*.toml
+
+# Configurações de IDE
+.vscode/
+.idea/
+
+# Arquivos específicos do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cobertura e relatórios de testes
+.coverage
+htmlcov/
+coverage.xml
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Arquivos compactados locais
+*.zip
+*.rar
+*.7z
+```

@@ -1,0 +1,47 @@
+
+# HortaSense — Identidade Visual Global
+# Tema claro com tipografia moderna e tons naturais.
+
+[theme]
+base = "light"
+
+# Cores principais
+primaryColor = "#183D32"
+backgroundColor = "#EFF3EF"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#25312B"
+
+# Tipografia
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Manrope:https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+
+baseFontSize = 15
+baseFontWeight = 400
+
+# Hierarquia dos títulos
+headingFontSizes = [
+    "2.35rem",
+    "1.8rem",
+    "1.4rem",
+    "1.2rem",
+    "1.05rem",
+    "1rem"
+]
+
+headingFontWeights = [700, 650, 650, 600, 600, 600]
+
+# Aparência dos componentes
+baseRadius = "0.75rem"
+buttonRadius = "0.5rem"
+borderColor = "#DFE7E0"
+showWidgetBorder = true
+
+# Sidebar
+[theme.sidebar]
+backgroundColor = "#F8FAF8"
+secondaryBackgroundColor = "#EDF3EE"
+textColor = "#25312B"
+primaryColor = "#183D32"
+
+[client]
+toolbarMode = "minimal"

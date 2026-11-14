@@ -1,0 +1,23 @@
+
+# HortaSense — Identidade Visual
+# Configurações globais do dashboard Streamlit.
+
+[theme]
+base = "light"
+
+# Cores principais
+primaryColor = "#176B4D"
+backgroundColor = "#F5F7F3"
+secondaryBackgroundColor = "#FFFFFF"
+
+# Tipografia
+textColor = "#263A32"
+font = "sans serif"
+
+# Elementos visuais
+baseRadius = "0.75rem"
+buttonRadius = "0.5rem"
+borderColor = "#E0E8E1"
+
+[client]
+toolbarMode = "minimal"
