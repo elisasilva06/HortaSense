@@ -5,11 +5,16 @@ HortaSense — Aplicação principal.
 Configura a navegação multipáginas e a identidade
 visual da barra lateral do dashboard.
 
+Inicializa o banco de dados SQLite, quando necessário,
+antes de executar as páginas da aplicação.
+
 As funcionalidades permanecem separadas nos módulos
 da pasta pages.
 """
 
 import streamlit as st
+
+from database import inicializar_banco
 
 
 # Configuração inicial da aplicação.
@@ -22,7 +27,16 @@ st.set_page_config(
 
 
 def main():
-    """Define as páginas e apresenta a navegação personalizada."""
+    """Inicializa os recursos e configura a navegação."""
+
+    # Garante que a estrutura do banco SQLite exista.
+    #
+    # Em uma instalação nova ou no Streamlit Community Cloud,
+    # o banco pode ainda não ter sido criado.
+    #
+    # A função deve criar a tabela somente quando necessário,
+    # preservando os registros existentes.
+    inicializar_banco()
 
     # Registro das quatro páginas do dashboard.
     visao_geral = st.Page(
@@ -50,7 +64,7 @@ def main():
         icon=":material/settings:",
     )
 
-    # Registra as páginas, mas oculta o menu automático.
+    # Registra as páginas e oculta a navegação automática.
     navegacao = st.navigation(
         [visao_geral, historico, alertas, configuracoes],
         position="hidden",
@@ -59,7 +73,7 @@ def main():
     # Construção da barra lateral personalizada.
     with st.sidebar:
 
-        # Identidade da plataforma.
+        # Identidade visual da plataforma.
         st.markdown("## 🌱 HortaSense")
         st.caption("Monitoramento Ambiental")
 
@@ -98,12 +112,12 @@ def main():
 
         st.divider()
 
-        # Informações fixas do protótipo.
+        # Informações fixas do dispositivo.
         st.caption("DISPOSITIVO")
         st.markdown("**ESP32 • HortaSense 01**")
         st.caption("MVP IoT — Microcontroladores")
 
-    # Executa somente a página selecionada.
+    # Executa a página selecionada.
     navegacao.run()
 
 
