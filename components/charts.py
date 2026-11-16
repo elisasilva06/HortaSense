@@ -12,6 +12,7 @@ Funcionalidades:
 - Destaque da última leitura.
 - Resumo estatístico das medições.
 
+Identidade visual Garden Matcha, com destaque para o gráfico principal.
 Os dados armazenados no SQLite não são alterados.
 """
 
@@ -26,11 +27,11 @@ import streamlit as st
 # IDENTIDADE VISUAL
 # ==========================================================
 
-COR_LINHA = "#366B73"
-COR_TEXTO = "#25312B"
-COR_SECUNDARIA = "#718078"
-COR_GRADE = "#E5EBE6"
-COR_ULTIMO = "#2D6F73"
+COR_LINHA = "#4E914A"
+COR_TEXTO = "#27382B"
+COR_SECUNDARIA = "#57664F"
+COR_GRADE = "#D8DFC9"
+COR_ULTIMO = "#668B4A"
 
 # O ESP32 envia medições aproximadamente a cada 5 segundos.
 # Intervalos superiores a 20 segundos interrompem a linha
@@ -206,15 +207,15 @@ def adicionar_tracos_tempo(figura, dados_filtrados):
 
                 line=dict(
                     color=COR_LINHA,
-                    width=3,
+                    width=4,
                 ),
 
                 marker=dict(
-                    size=8,
+                    size=10,
                     color=COR_LINHA,
                     line=dict(
                         color="#FFFFFF",
-                        width=1.5,
+                        width=2,
                     ),
                 ),
 
@@ -265,15 +266,15 @@ def adicionar_traco_quantidade(figura, dados_filtrados):
 
             line=dict(
                 color=COR_LINHA,
-                width=3,
+                width=4,
             ),
 
             marker=dict(
-                size=8,
+                size=10,
                 color=COR_LINHA,
                 line=dict(
                     color="#FFFFFF",
-                    width=1.5,
+                    width=2,
                 ),
             ),
 
@@ -302,34 +303,34 @@ def configurar_layout_base(figura):
     """Aplica a identidade visual do HortaSense."""
 
     figura.update_layout(
-        height=380,
+        height=490,
 
         margin=dict(
-            l=20,
-            r=30,
-            t=30,
-            b=20,
+            l=28,
+            r=38,
+            t=36,
+            b=30,
         ),
 
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
 
         font=dict(
-            family="Inter, sans-serif",
+            family="Manrope, sans-serif",
             color=COR_TEXTO,
-            size=12,
+            size=14,
         ),
 
         hovermode="closest",
 
         hoverlabel=dict(
-            bgcolor="#FFFFFF",
+            bgcolor="#FFFDF6",
             bordercolor=COR_GRADE,
 
             font=dict(
-                family="Inter, sans-serif",
+                family="Manrope, sans-serif",
                 color=COR_TEXTO,
-                size=12,
+                size=16,
             ),
         ),
 
@@ -342,7 +343,7 @@ def configurar_layout_base(figura):
     figura.update_yaxes(
         title_text="Umidade do solo (%)",
 
-        range=[-5, 105],
+        range=[-6, 106],
 
         tickvals=[
             0, 20, 40, 60, 80, 100
@@ -480,16 +481,16 @@ def destacar_ultima_medicao(
 
             textfont=dict(
                 color=COR_TEXTO,
-                size=12,
+                size=16,
             ),
 
             marker=dict(
                 color=COR_ULTIMO,
-                size=13,
+                size=16,
 
                 line=dict(
                     color="#FFFFFF",
-                    width=3,
+                    width=4,
                 ),
             ),
 

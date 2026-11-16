@@ -114,3 +114,94 @@ def consultar_ultimas_medicoes(limite=10):
         ).fetchall()
 
         return [dict(registro) for registro in registros]
+
+# ============================================================
+# CONSULTA HISTÓRICA POR INTERVALO DE DATA E HORÁRIO
+# ============================================================
+
+def consultar_medicoes_intervalo(inicio_local, fim_local):
+    """
+    Consulta as medições entre dois horários locais.
+
+    Parâmetros:
+        inicio_local (datetime):
+            Início do intervalo no fuso America/Fortaleza.
+
+        fim_local (datetime):
+            Final exclusivo do intervalo no mesmo fuso.
+
+    Retorno:
+        list[dict]: medições em ordem cronológica.
+
+    Observações:
+        - Não altera os dados armazenados.
+        - Os horários são convertidos para UTC.
+        - A consulta utiliza parâmetros SQL.
+        - Não existe limite de 100 registros.
+    """
+
+    import sqlite3
+    from datetime import timezone
+    from pathlib import Path
+
+    if inicio_local.tzinfo is None or fim_local.tzinfo is None:
+        raise ValueError(
+            "Os horários precisam conter informação de fuso."
+        )
+
+    if inicio_local >= fim_local:
+        raise ValueError(
+            "O horário final deve ser posterior ao inicial."
+        )
+
+    # Converte os horários locais para UTC.
+    inicio_utc = inicio_local.astimezone(timezone.utc)
+    fim_utc = fim_local.astimezone(timezone.utc)
+
+    # Utiliza o mesmo arquivo SQLite do HortaSense.
+    caminho_banco = (
+        Path(__file__).resolve().parent
+        / "data"
+        / "hortasense.db"
+    )
+
+    # Não cria um banco vazio caso o arquivo esteja ausente.
+    if not caminho_banco.is_file():
+        return []
+
+    conexao = sqlite3.connect(str(caminho_banco))
+
+    conexao.row_factory = sqlite3.Row
+
+    try:
+        cursor = conexao.execute(
+            """
+            SELECT
+                id,
+                device,
+                air_temperature_c,
+                air_humidity_pct,
+                soil_temperature_c,
+                soil_moisture_pct,
+                soil_adc,
+                irrigation_status,
+                uptime_ms,
+                received_at
+            FROM medicoes
+            WHERE julianday(received_at) >= julianday(?)
+              AND julianday(received_at) < julianday(?)
+            ORDER BY julianday(received_at) ASC, id ASC
+            """,
+            (
+                inicio_utc.isoformat(),
+                fim_utc.isoformat(),
+            ),
+        )
+
+        return [
+            dict(registro)
+            for registro in cursor.fetchall()
+        ]
+
+    finally:
+        conexao.close()

@@ -16,6 +16,7 @@ import streamlit as st
 
 from database import inicializar_banco
 
+from hortasense_theme import aplicar_tema
 
 # Configuração inicial da aplicação.
 st.set_page_config(
@@ -28,6 +29,8 @@ st.set_page_config(
 
 def main():
     """Inicializa os recursos e configura a navegação."""
+
+    aplicar_tema()
 
     # Garante que a estrutura do banco SQLite exista.
     #
