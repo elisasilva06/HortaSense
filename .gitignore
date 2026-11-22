@@ -21,7 +21,7 @@ build/
 dist/
 *.egg-info/
 
-# Banco de dados local
+# Banco de dados local (SQLite)
 data/*.db
 data/*.db-journal
 data/*.db-wal
@@ -32,16 +32,32 @@ data/*.db-shm
 # Preservar a pasta data no repositório
 !data/.gitkeep
 
-# Variáveis de ambiente e credenciais
+# ==========================================
+# Segurança — Variáveis e credenciais
+# ==========================================
+
+# Variáveis de ambiente
 .env
 .env.*
 !.env.example
+
+# Chaves e certificados privados
 *.pem
 *.key
+
+# Credenciais locais do Supabase / Streamlit
 secrets.toml
 .streamlit/secrets.toml
 
-# Arquivos temporários
+# O arquivo .streamlit/config.toml NÃO é ignorado.
+# Ele contém as configurações visuais do Streamlit.
+# As credenciais devem ser configuradas separadamente
+# nos Secrets do Streamlit Community Cloud.
+
+# ==========================================
+# Arquivos temporários e backups
+# ==========================================
+
 *.tmp
 *.temp
 *.log
@@ -76,4 +92,3 @@ coverage.xml
 *.zip
 *.rar
 *.7z
-```
