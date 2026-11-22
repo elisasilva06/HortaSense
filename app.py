@@ -5,8 +5,8 @@ HortaSense — Aplicação principal.
 Configura a navegação multipáginas e a identidade
 visual da barra lateral do dashboard.
 
-Inicializa o banco de dados SQLite, quando necessário,
-antes de executar as páginas da aplicação.
+A camada de persistência é gerenciada pelo database.py,
+que atualmente utiliza Supabase.
 
 As funcionalidades permanecem separadas nos módulos
 da pasta pages.
@@ -15,8 +15,8 @@ da pasta pages.
 import streamlit as st
 
 from database import inicializar_banco
-
 from hortasense_theme import aplicar_tema
+
 
 # Configuração inicial da aplicação.
 st.set_page_config(
@@ -32,21 +32,26 @@ def main():
 
     aplicar_tema()
 
-    # Garante que a estrutura do banco SQLite exista.
-    #
-    # Em uma instalação nova ou no Streamlit Community Cloud,
-    # o banco pode ainda não ter sido criado.
-    #
-    # A função deve criar a tabela somente quando necessário,
-    # preservando os registros existentes.
+    # Mantém a inicialização prevista pela camada de dados.
+    # Na integração atual com Supabase, esta função
+    # preserva a compatibilidade com a aplicação.
     inicializar_banco()
 
-    # Registro das quatro páginas do dashboard.
+    # ==========================================
+    # REGISTRO DAS PÁGINAS
+    # ==========================================
+
     visao_geral = st.Page(
         "pages/visao_geral.py",
         title="Visão Geral",
         icon=":material/dashboard:",
         default=True,
+    )
+
+    monitoramento_ar = st.Page(
+        "pages/monitoramento_ar.py",
+        title="Condições do Ar",
+        icon=":material/air:",
     )
 
     historico = st.Page(
@@ -67,13 +72,25 @@ def main():
         icon=":material/settings:",
     )
 
-    # Registra as páginas e oculta a navegação automática.
+    # ==========================================
+    # NAVEGAÇÃO
+    # ==========================================
+
     navegacao = st.navigation(
-        [visao_geral, historico, alertas, configuracoes],
+        [
+            visao_geral,
+            monitoramento_ar,
+            historico,
+            alertas,
+            configuracoes,
+        ],
         position="hidden",
     )
 
-    # Construção da barra lateral personalizada.
+    # ==========================================
+    # MENU LATERAL
+    # ==========================================
+
     with st.sidebar:
 
         # Identidade visual da plataforma.
@@ -84,11 +101,17 @@ def main():
 
         st.caption("MENU PRINCIPAL")
 
-        # Links de navegação entre as páginas.
         st.page_link(
             visao_geral,
             label="Visão Geral",
             icon=":material/dashboard:",
+            width="stretch",
+        )
+
+        st.page_link(
+            monitoramento_ar,
+            label="Condições do Ar",
+            icon=":material/air:",
             width="stretch",
         )
 
