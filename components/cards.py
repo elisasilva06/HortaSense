@@ -171,9 +171,9 @@ def exibir_estado_hidrico(estado):
             "simbolo": "✓",
         },
         "warning": {
-            "cor": "#975000",
-            "fundo": "#FFE2A3",
-            "borda": "#D99428",
+            "cor": "#1D5FA7",
+            "fundo": "#DCEBFC",
+            "borda": "#74A9E2",
             "marcador": "ATENÇÃO · ACOMPANHAR UMIDADE",
             "simbolo": "!",
         },

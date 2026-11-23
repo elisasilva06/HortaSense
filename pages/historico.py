@@ -397,7 +397,7 @@ def indicadores(dados):
     cards = st.columns(4, gap="small")
     conteudo = [
         ("Umidade média", f"{umidades.mean():.1f}%".replace(".", ","), "Média das leituras", C["petroleo"]),
-        ("Umidade mínima", f"{umidade_min:.0f}%", "Menor leitura (> 0%)", C["vermelho"]),
+        ("Umidade mínima", f"{umidade_min:.0f}%", "Menor leitura", C["vermelho"]),
         ("Umidade máxima", f"{umidades.max():.0f}%", "Maior leitura", C["verde"]),
         ("Total de leituras", f"{len(umidades)}", "Medições válidas", C["amarelo"]),
     ]
